@@ -20,3 +20,15 @@ def pregunta_10():
     D                   1:2:3:5:5:7
     E   1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
+
+    import pandas as pd
+
+    file_ = pd.read_csv('files/input/tbl0.tsv', sep='\t', dtype={'c0': pd.UInt8Dtype(), 'c1': pd.StringDtype(), 'c2': pd.UInt8Dtype()})
+
+    result = (
+        file_
+        .groupby('c1')
+        .agg({'c2': lambda x: ':'.join(map(str, x.sort_values()))})
+        )
+
+    return result

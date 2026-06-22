@@ -20,3 +20,11 @@ def pregunta_05():
     E    9
     Name: c2, dtype: int64
     """
+
+    import pandas as pd
+
+    file_ = pd.read_csv('files/input/tbl0.tsv', sep='\t', dtype={'c0': pd.UInt8Dtype(), 'c1': pd.StringDtype(), 'c2': 'int64'})
+
+    result = pd.Series(file_.groupby('c1')['c2'].max())
+
+    return result

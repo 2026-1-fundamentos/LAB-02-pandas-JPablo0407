@@ -20,3 +20,19 @@ def pregunta_13():
     E    275
     Name: c5b, dtype: int64
     """
+
+    import pandas as pd
+    
+    file_1 = pd.read_csv('files/input/tbl0.tsv', sep='\t', dtype={'c0': pd.UInt8Dtype(), 'c1': pd.StringDtype(), 'c2': pd.UInt8Dtype()})
+
+    file_2 = pd.read_csv('files/input/tbl2.tsv', sep='\t', dtype={'c0': pd.UInt8Dtype(), 'c5a': pd.StringDtype(), 'c5b': 'int64'})
+
+    file_ = pd.merge(file_1, file_2, on='c0')
+    
+    result = (
+        file_
+        .groupby('c1')['c5b']
+        .sum()
+        )
+
+    return result

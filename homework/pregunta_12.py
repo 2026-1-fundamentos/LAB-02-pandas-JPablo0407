@@ -22,3 +22,18 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+
+    import pandas as pd
+    
+    file_ = pd.read_csv('files/input/tbl2.tsv', sep='\t', dtype={'c0': pd.UInt8Dtype(), 'c5a': pd.StringDtype(), 'c5b': pd.StringDtype()})
+
+    file_['c5'] = file_['c5a'] + ':' + file_['c5b']
+
+    result = (
+     file_
+     .groupby('c0')
+     .agg({'c5': lambda x: ','.join(map(str, x.sort_values()))})
+     .reset_index()
+     )
+
+    return result
